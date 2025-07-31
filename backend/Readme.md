@@ -131,7 +131,40 @@ python manage.py runserver
 ```
 
 ---
+## Adding Dummy Data (Django Shell)
 
+You can quickly add dummy data for development using the Django shell:
+
+1. Open the Django shell:
+   ```bash
+   python manage.py shell
+   ```
+
+2. Run the following in the shell to create sample users, blogs, and signals:
+   ```python
+   from users.models import User
+   from blogs.models import Blog
+   from signals.models import Signal
+
+   # Create a user
+   user = User.objects.create_user(username='dummyuser', email='dummy@example.com', password='testpass', role='free')
+
+   # Create a blog
+   Blog.objects.create(title='Sample Blog', content='This is a test blog.', author=user)
+
+   # Create a signal
+   Signal.objects.create(
+       coin='BTC',
+       direction='long',
+       entry_price=45000,
+       leverage=10,
+       targets={"47000": "pending"},
+       stop_loss=44000,
+       status='pending',
+       created_by=user
+   )
+   ```
+---
 ## Testing
 
 ```bash
